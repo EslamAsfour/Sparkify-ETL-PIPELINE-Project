@@ -9,7 +9,7 @@ The current dataset is a directory of JSON logs on user activity on the app, as 
 2. sql_queries.py : Python script containts Create/Insert/Select Queries format for each table we will create
 3. create_tables.py : Python script to Drop all created tables and recreate them with the sql_queries formats
 4. etl.ipynb : Jupyter notebook to test the ETL pipeline schema and process
-5. elt.py : Python Script containts the whole ETL Process ready to run 
+5. etl.py : Python Script containts the whole ETL Process ready to run 
 6. test.ipynb : Jupyter notebook to test the content of each table 
     
 ## 3) How to run the Python scripts
@@ -24,7 +24,55 @@ The current dataset is a directory of JSON logs on user activity on the app, as 
 3. Check Table content and do you analysis on test.ipynb 
 
 
+## 4) Database Schema Design 
+In this Database we are using **Star Schema** 
+### Fact Table : 
+1. **songplays** : records in log data associated with song plays i.e. records with page NextSong
+Attributes :
++ songplay_id
++ start_time
++  user_id
++  level
++  song_id 
++  artist_id 
++  session_id 
++  location 
++  user_agent
+### Dimension Tables
+1. **users** - users in the app
+Attributes : 
++ user_id 
++ first_name 
++ last_name 
++ gender 
++ level
+2. **songs** - songs in music database
+Attributes : 
++ song_id 
++ title 
++ artist_id 
++ year 
++ duration
+3. **artists** - artists in music database
+Attributes : 
++ artist_id 
++ name 
++ location 
++ latitude 
++ longitude
+4. **time** - timestamps of records in songplays broken down into specific units
+Attributes : 
++ start_time 
++ hour 
++ day 
++ week 
++ month 
++ year 
++ weekday
 
-
-State and justify your database schema design and ETL pipeline.
-[Optional] Provide example queries and results for song play analysis.
+## 5) ETL pipeline
+1. Create Database tables
+2. Load JSON Files and Create Pandas Dataframe to store the Data
+3. Extract the needed Data from pandas dataframe 
+4. Transform the needed columns to the target form (Ex : Transform ts column to datetime Type)
+5. Load\Insert data into the target tables
